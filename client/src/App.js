@@ -24,7 +24,7 @@ import {logoutUser} from "./redux/ActionCreaters/userActions"
 import {database} from './firebase';
 
 function App(props) {
-  const { isAuthenticated, isVerifying } = props;
+  const { isAuthenticated, isVerifying , isAdmin={isAdmin}} = props;
   useEffect(()=>{
   //props.logoutUser()
    
@@ -47,36 +47,76 @@ function App(props) {
         <Route exact path="/" component={withRouter(HomePage)} history={history}></Route> 
             
               
-      {  <UnProtectedRoute
+       
+       <UnProtectedRoute
         exact
         path="/user/register"
         component={withRouter(UserRegister)}
         isAuthenticated={isAuthenticated}
         history={history}
         isVerifying={isVerifying}
-      />   }
+        isAdmin={isAdmin}
+      /> 
+        
       
-        <ProtectedRoute
+      <ProtectedRoute
         exact
         path="/user/home"
         component={withRouter(UserHomePage)}
         isAuthenticated={isAuthenticated}
         history={history}
         isVerifying={isVerifying}
+        isAdmin={isAdmin}
       />
         
-
-        <Route exact path="/admin/login" component={withRouter(AdminLogin)} history={history}></Route>   
-        <Route exact path="/admin/home" component={withRouter(AdminHomePage)} history={history}></Route>  
+        <UnProtectedRoute
+        exact
+        path="/user/register"
+        component={withRouter(UserRegister)}
+        isAuthenticated={isAuthenticated}
+        history={history}
+        isVerifying={isVerifying}
+        isAdmin={isAdmin}
+      /> 
+        
+      
+      <ProtectedRoute
+        exact
+        path="/user/home"
+        component={withRouter(UserHomePage)}
+        isAuthenticated={isAuthenticated}
+        history={history}
+        isVerifying={isVerifying}
+        isAdmin={isAdmin}
+      />
+        <UnProtectedRoute
+        exact
+        path="/admin/login"
+        component={withRouter(AdminLogin)}
+        isAuthenticated={isAuthenticated}
+        history={history}
+        isVerifying={isVerifying}
+        isAdmin={isAdmin}
+      /> 
+        
+      
+      <ProtectedRoute
+        exact
+        path="/admin/home"
+        component={withRouter(AdminHomePage)}
+        isAuthenticated={isAuthenticated}
+        history={history}
+        isVerifying={isVerifying}
+        isAdmin={isAdmin}
+      />
+      
         <Route exact path="*" component={withRouter(NotFound)} history={history} ></Route>   
 
        
        
         </Switch>
      
-      </Router>
-
-    
+      </Router>   
         
           </div>
         )
@@ -86,7 +126,8 @@ function App(props) {
 const mapStateToProps=({user})=>{
   return {
     isAuthenticated: user.isAuthenticated,
-    isVerifying: user.isVerifying
+    isVerifying: user.isVerifying,
+    isAdmin:user.isAdmin
   };
 }
 

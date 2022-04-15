@@ -40,7 +40,7 @@ modifier onlyAdmin() {
         owner = msg.sender;
         candidateCount = 0;
         start = true;
-        end = false;      
+        end = false;     
 
         addCandidate("Tokyo","BJP","B.E") ;
         addCandidate("Rio","Congress","b.a") ;

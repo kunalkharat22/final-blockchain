@@ -2,19 +2,24 @@ import {
     USER_LOGOUT ,LOAD_USER ,
     USER_SIGNIN_REQUEST,USER_SIGNIN_SUCCESS,USER_SIGNIN_FAIL
     ,OTP_INVALID,OTP_SENT,OTP_VERIFIED,
-    VERIFY_AUTH_REQUEST,VERIFY_AUTH_SUCCESS
+    VERIFY_AUTH_REQUEST,VERIFY_AUTH_SUCCESS,
+    ADMIN_SIGNIN_SUCCESS,ADMIN_SIGNIN_REQUEST,ADMIN_SIGNIN_FAIL
+
 } from "../actions"
 
 
 const initialState={
     loading:true,
     userInfo:{},
-   userError_signin:false,
+    userError_signin:null,
     otpsent:false,
     otpVerified:false,
     otpInvalid:false,
     isAuthenticated: false,
     isVerifying: false,
+    isAdmin:false,
+    adminInfo:{},
+    adminSignInError:null
     
 }
 
@@ -47,12 +52,16 @@ export const  userReducer=(state=initialState,action)=>{
       return{
          loading:true,
          userInfo:{},
-        userError_signin:false,
+         userError_signin:null,
          otpsent:false,
          otpVerified:false,
          otpInvalid:false,
          isAuthenticated: false,
          isVerifying: false,
+         isAdmin:false,
+         adminInfo:{},
+         adminSignInError:null
+         
       }
       
         case VERIFY_AUTH_REQUEST:
@@ -87,7 +96,31 @@ export const  userReducer=(state=initialState,action)=>{
             ...state,
             loading:false,
             userError_signin:action.payload
-         } 
+         }
+      case ADMIN_SIGNIN_REQUEST:
+         return{
+            ...state,
+            loading:true,
+
+         }
+
+      case ADMIN_SIGNIN_FAIL:
+         return{
+            ...state,
+            loading:false,
+            adminSignInError:action.payload
+         }
+
+      case ADMIN_SIGNIN_SUCCESS:
+         return{
+            ...state,
+            isAdmin:true,
+            loading:false,
+            adminInfo:action.payload,
+            loading: false,
+            isAuthenticated: true,
+         }
+
      default :
      return state;  
     }
