@@ -1,0 +1,40 @@
+.main{
+    
+    display:flex;
+    flex-direction:row
+  }
+
+.comp-left{
+   
+  flex: 20%;
+   height:100vh;
+    background-color: 	#3BD172;  
+    filter:drop-shadow(7px 0px 5px rgba(0, 0, 0, 0.19));
+    
+    
+
+  }
+  
+  .comp-right{  
+    flex: 80%;
+    height:100vh;
+    background-color:#F5F5F5;
+    overflow-y: scroll;
+ 
+  }
+
+  .comp-right-wrapper{
+    padding:40px;
+    margin: 30px 30px 0 15px;
+   
+  }
+  
+.signIn-btn{
+	background-color:	#3BD172;
+   color:white;
+   font-size: 20px; 
+   padding: 8px 25px 8px 25px;
+   margin-right: 20px;
+   width: 150px;
+   
+ }

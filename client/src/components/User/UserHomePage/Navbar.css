@@ -1,0 +1,51 @@
+.nav1{
+  display: flex;
+  justify-content: center;
+  color: white;
+  margin-top: 70px;
+  flex-direction: column;
+}
+.main-nav
+{
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+  position: fixed;
+}
+
+.admin-logo{
+  font-size:30px; 
+  color: white;
+  margin-left: 20px;
+}
+
+.nav svg , .fa{
+  font-size:20px; 
+  margin-right: 10px  !important;
+  margin-left: 10px;
+
+}
+
+
+.nav1 a{
+  font-size:20px;
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+  padding:  8px 25px 8px 18px ;
+  text-decoration: none;
+  
+}
+
+.nav1 .a-active{
+  background-color: rgb(255, 255, 255);
+  color: #25bd80 !important;
+  border-radius: 15px;
+}
+.nav1 a:hover{
+  background-color: rgb(255, 255, 255);
+  color: #25bd80 !important;
+  border-radius: 15px;
+
+}
+

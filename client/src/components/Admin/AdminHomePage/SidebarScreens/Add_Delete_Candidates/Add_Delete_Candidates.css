@@ -1,0 +1,58 @@
+.d-flex-row{
+ margin-top: -10px;
+    
+}
+
+.btn1{
+    background-color: 	#3BD172;
+    color:white;
+    font-size: 29px;
+    border-radius: 5px;
+}
+
+.btn3{
+
+  font-style: normal;
+  font-weight: 500;
+color: rgba(255,255,255,1);
+
+margin-top:30px;
+margin-right: 50px;
+padding: 7px 15px 7px 15px;
+}
+
+.btn2{
+    color: 	#3BD172;
+    font-size: 29px;
+    
+    background-color: #F5F5F5;
+}
+.bg-white{
+    background-color: white;
+}
+
+.addCan{
+   
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    padding: 30px 30px 50px 30px;
+    
+   
+}
+
+button:focus {
+    outline: 0 !important;
+}
+
+input:focus{
+    outline: none;
+}
+
+.addCan input{
+    background-color: white;
+    border-bottom: 4px solid #f3f3f3;
+    margin-top: 20px;
+    padding-bottom: 10px;
+
+}

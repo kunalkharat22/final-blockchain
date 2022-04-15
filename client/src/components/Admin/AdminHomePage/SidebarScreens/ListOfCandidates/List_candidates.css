@@ -1,0 +1,42 @@
+.color-green1{
+    color: #25bd80 !important;
+
+}
+
+.c-details{
+    
+    display: flex;
+    flex-direction: column;
+}
+.h2t{
+    margin-top: 40px;
+    margin-left: 20px;
+    font-size: 26px;
+}
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 20px;
+    padding: 50px;
+}
+
+table th{
+	padding:13px 40px 13px 40px;
+}
+
+table tr {
+	text-align: center;
+	padding-left:20px;
+    
+}
+
+tbody{    
+    background-color: white;
+    
+}
+
+tbody tr{
+    border-bottom: 5px solid #f3f3f3;
+  
+    
+}

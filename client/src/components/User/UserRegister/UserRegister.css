@@ -1,0 +1,157 @@
+.already-registered{
+margin-top:120px;
+}
+.main{
+width:100vw;
+height:100vh;
+display:flex;
+flex-direction:row
+}
+.details{
+margin-top:30px;
+font-size:23px;
+}
+
+span{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+#otp:hover{
+ color: 	#3BD172; 
+}
+.comp2-left{
+
+flex: 35%;
+min-height:100vh;
+background-color: 	#3BD172;  
+justify-content: center;
+}
+
+.comp2-right{  
+flex:65%;
+width:65vw;
+min-height:100vh
+}
+
+.logo{
+margin-left:22px;
+margin-top:35px;
+}
+
+.fa-check-circle:hover{
+color:green
+}
+
+.input-field{
+background-color:rgba(243,243,243,1);
+font-size: 20px;
+width:400px;
+ color:#616161;
+ 
+}
+i.fa{
+margin-right:20px;
+font-size:40px;
+}
+i.fa-envelope{
+font-size:33px;
+}
+
+
+.main{
+   width:100vw;
+   height:100vh;
+   display:flex;
+   flex-direction:row
+   }
+   .details{
+   margin-top:30px;
+   font-size:23px;
+   }
+   .comp1-left{
+   flex: 65%;
+   min-height:100vh
+   }
+   .comp1-right{
+   padding:20px;
+   flex:35%;
+   background-color:#3BD172;
+   display:flex;
+   flex-direction:column;
+   align-items:center;
+   justify-content:center;
+   
+   }
+   
+   .logo{
+   margin-left:22px;
+   margin-top:35px;
+   }
+   
+   .sign-in{
+   margin-top:40px;
+   font-size: 30px;
+   }
+   
+   
+   .u{
+   text-decoration: underline;
+   margin:20px;
+   }
+   
+   
+   .form{  
+   display:flex;
+   flex-direction:column;
+   justify-content:center;
+   align-items:center;
+   margin-top:20px;
+   }
+   
+   .input-field-cont{
+   width:500px;
+   height:50px;
+   padding:20px;
+   background-color:rgba(243,243,243,1);
+       white-space: nowrap;
+       text-align: center;
+       font-style: normal;
+       font-weight: normal;
+       font-size: 26px;
+       color: rgba(206,205,205,1);
+   margin:20px;
+   
+   display:flex;
+   flex-direction:row;
+   justify-content:center;
+   align-items:center;
+   }
+   .input-field{
+   background-color:rgba(243,243,243,1);
+   font-size: 20px;
+   width:500px;
+    color:#616161;
+    
+   }
+   i.fa , svg{
+   margin-right:20px;
+   font-size:27px;
+   }
+   i.fa-envelope{
+   font-size:25px;
+   }
+   input:focus {
+   color:#616161;
+   outline:none;
+   border:none;
+   }
+   
+   .fa-check-circle:hover{
+   color:green
+   }
+   
+   .register-btn{
+   
+       padding: 8px 25px 8px 25px;
+   }

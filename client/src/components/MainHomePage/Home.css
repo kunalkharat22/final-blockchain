@@ -1,0 +1,40 @@
+
+.btn-getStarted{	 	
+	margin-top: 40px;
+	width: 220px !important;
+	padding: 15px  20px !important;
+	font-size: 22px !important;
+	letter-spacing: 1.3px;
+	border-radius: 50px;
+
+ }
+.content{
+	position: absolute;
+	left: 0;
+	top:0;
+	color: white;
+	width: 100%;
+	
+	padding-left: 50px;
+}
+.content h1{
+	margin-top: 50px;
+	font-size: 60px;
+}
+.content h3{
+	margin-top: 50px;
+	font-size: 25px;
+	width: 700px;
+}
+
+.content h2{
+	margin-top: 20px;
+	font-size: 45px;
+}
+
+.main-holder{
+	overflow: hidden;
+	background: url("./bg.png") center center / cover no-repeat fixed;
+	z-index: 70;
+	height: 100vh;
+}
