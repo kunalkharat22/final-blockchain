@@ -5,6 +5,8 @@ const ProtectedRoute = ({
   component: Component,
   isAuthenticated,
   isVerifying,
+  forAdmin,
+  isAdmin,
   ...rest
 }) => (
   <Route
@@ -16,10 +18,21 @@ const ProtectedRoute = ({
         <Component {...props} />
       ) : (
         <Redirect
-          to={{
+
+        to={ 
+          isAdmin && forAdmin ? 
+          {
+            pathname: "/admin/login",
+            state: { from: props.location }
+          }:
+
+          {
             pathname: "/user/register",
             state: { from: props.location }
-          }}
+          }
+        
+        }
+
         />
       )
     }

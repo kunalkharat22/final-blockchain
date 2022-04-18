@@ -4,7 +4,8 @@ import "./CandidateList.css"
 const CandidateList = (props) => {
 
 const Vote=(id)=>{
-    alert("Vote for candidate having id"+id)
+    console.log("Vote for candidate having id"+id)
+    props.vote(id);
 }
 
     return (

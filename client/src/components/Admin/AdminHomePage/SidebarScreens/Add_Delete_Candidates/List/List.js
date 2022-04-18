@@ -12,27 +12,27 @@ function List(props) {
             <th>Sr.</th>
             <th>Candidate Name</th>
             <th>Party</th>
-            <th>Age</th>
             <th>Qualification</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>ABC</td>
-            <td>r</td>
-            <td>45</td>
-            <td>B.E</td>            
-            <button  class="delete-btn">Delete</button>
-        </tr>
-        <tr >
-             <td>2</td>
-            <td>XYZ</td>
-            <td>rS</td>
-            <td>25</td>
-            <td>B.COM</td>
-            <button  class="delete-btn">Delete</button>
-        </tr>
+    {props.candidates&&props.candidates[0]&&props.candidates.map((candidate)=>{
+           return(
+           <tr>
+             <td>{candidate.id}</td>
+              <td>{candidate.name}</td>
+              <td>{candidate.party}</td> 
+              <td>{candidate.qualification}</td>             
+              <td>{candidate.voteCount}</td> 
+              
+            <button  class="delete-btn" onClick={()=>{props.DeleteCandidate(candidate.id)}}>Delete</button> 
+              
+            </tr>
+            
+            )
+       })
+    } 
+     
     </tbody>
 </table>
 

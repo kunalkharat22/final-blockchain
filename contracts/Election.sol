@@ -1,4 +1,4 @@
-pragma solidity ^0.8.13;
+pragma solidity ^0.5.16;
 
 
 contract Election {
@@ -17,6 +17,16 @@ contract Election {
     event AddedEvent (
         uint indexed _candidateId
     );
+     event VotingStartedEvent (
+        bool start
+    );
+     event VotingEndedEvent (
+       bool end
+    );
+      event DeletedEvent (
+        uint indexed _candidateId
+    );
+    
 
 modifier onlyAdmin() {
    require(msg.sender == owner);
@@ -52,7 +62,16 @@ modifier onlyAdmin() {
         candidates[candidatesCount]=Candidate(candidatesCount,_name,0,_party,qualification);
          emit AddedEvent(candidatesCount);
      
+    }    
+    
+    function deleteCandidate(uint _id) public onlyAdmin
+     {
+      
+        delete candidates[_id];
+         emit DeletedEvent(_id);
+     
     }
+
 
     function vote (uint _candidateId) public {
         // require that they haven't voted before
@@ -76,14 +95,18 @@ function getOwner() public view returns (address) {
 function startElection() public onlyAdmin {
    start = true;
    end = false;
+   emit VotingStartedEvent(start);
 }
 function endElection() public onlyAdmin {
    end = true;
    start = false;
+
+   emit VotingEndedEvent(end);
 }
 
 function getStart() public view returns (bool) {
    return start;
+  
 }
 function getEnd() public view returns (bool) {
    return end;

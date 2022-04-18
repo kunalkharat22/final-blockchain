@@ -42,10 +42,8 @@ function App(props) {
       <div className="App">
         <Router history={history}>
 
-        <Switch>
-          
-        <Route exact path="/" component={withRouter(HomePage)} history={history}></Route> 
-            
+        <Switch>          
+        <Route exact path="/" component={withRouter(HomePage)} history={history}></Route>            
               
        
        <UnProtectedRoute
@@ -56,40 +54,25 @@ function App(props) {
         history={history}
         isVerifying={isVerifying}
         isAdmin={isAdmin}
+        forAdmin={false}
       /> 
         
       
-      <ProtectedRoute
+   {  
+      !isAdmin &&  <ProtectedRoute
         exact
         path="/user/home"
         component={withRouter(UserHomePage)}
         isAuthenticated={isAuthenticated}
         history={history}
         isVerifying={isVerifying}
-        isAdmin={isAdmin}
-      />
-        
-        <UnProtectedRoute
-        exact
-        path="/user/register"
-        component={withRouter(UserRegister)}
-        isAuthenticated={isAuthenticated}
-        history={history}
-        isVerifying={isVerifying}
-        isAdmin={isAdmin}
-      /> 
-        
+        isAdmin={isAdmin}  
+        forAdmin={false}
+        />
+        }
+           
       
-      <ProtectedRoute
-        exact
-        path="/user/home"
-        component={withRouter(UserHomePage)}
-        isAuthenticated={isAuthenticated}
-        history={history}
-        isVerifying={isVerifying}
-        isAdmin={isAdmin}
-      />
-        <UnProtectedRoute
+      <UnProtectedRoute
         exact
         path="/admin/login"
         component={withRouter(AdminLogin)}
@@ -97,10 +80,12 @@ function App(props) {
         history={history}
         isVerifying={isVerifying}
         isAdmin={isAdmin}
+        forAdmin={true}
       /> 
         
       
-      <ProtectedRoute
+     { isAdmin && 
+       <ProtectedRoute
         exact
         path="/admin/home"
         component={withRouter(AdminHomePage)}
@@ -108,12 +93,11 @@ function App(props) {
         history={history}
         isVerifying={isVerifying}
         isAdmin={isAdmin}
-      />
+        forAdmin={true}
+      />}
       
-        <Route exact path="*" component={withRouter(NotFound)} history={history} ></Route>   
-
-       
-       
+        <Route exact path="*" component={withRouter(NotFound)} history={history} ></Route> 
+      
         </Switch>
      
       </Router>   

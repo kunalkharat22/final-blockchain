@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import {adminReducer} from "./AdminReducer"
 import {userReducer} from "./UserReducer"
+import {web3Reducer} from "./Web3Reducer"
 
 export default combineReducers({
-    admin:adminReducer,
+    web3Reducer:web3Reducer,
     user:userReducer,    
 
 });
