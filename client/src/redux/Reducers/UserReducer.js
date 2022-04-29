@@ -1,7 +1,7 @@
 import {
     USER_LOGOUT ,LOAD_USER ,
     USER_SIGNIN_REQUEST,USER_SIGNIN_SUCCESS,USER_SIGNIN_FAIL
-    ,OTP_INVALID,OTP_SENT,OTP_VERIFIED,
+    ,OTP_INVALID,OTP_SENT,OTP_VERIFIED,OTP_SENT_ERROR,
     VERIFY_AUTH_REQUEST,VERIFY_AUTH_SUCCESS,
     ADMIN_SIGNIN_SUCCESS,ADMIN_SIGNIN_REQUEST,ADMIN_SIGNIN_FAIL
 
@@ -14,6 +14,7 @@ const initialState={
     userError_signin:null,
     otpsent:false,
     otpVerified:false,
+    invalidAdhar:false,
     otpInvalid:false,
     isAuthenticated: false,
     isVerifying: false,
@@ -30,7 +31,15 @@ export const  userReducer=(state=initialState,action)=>{
         case OTP_INVALID:
             return{
                ...state,
-               otpInvalid:true , 
+               otpInvalid:action.payload ,
+               otpsent:false 
+            }
+         case OTP_SENT_ERROR:
+            return{
+               ...state,
+               invalidAdhar:action.payload,
+              
+
             }
             case OTP_SENT:
                 return{

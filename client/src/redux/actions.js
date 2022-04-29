@@ -1,5 +1,6 @@
 
 export const OTP_SENT = 'OTP_SENT';
+export const OTP_SENT_ERROR = 'OTP_SENT_ERROR';
 export const OTP_VERIFIED = 'OTP_VERIFIED';
 export const OTP_INVALID = 'OTP_INVALID';
 

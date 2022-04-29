@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "./AdminLogin.css"
 import { connect } from 'react-redux';
 
@@ -14,9 +14,18 @@ const AdminLogin = (props) => {
     const [emailError,setEmailError]=useState(null)
     const [passwordError,setPasswordError]=useState(null)
 
+  
+    useEffect(() => {
+        if(  props.user.adminSignInError){
+            setPasswordError(false)
+        }
+    
+      },[ props.user.adminSignInError]);
+
     const AdminLoginClicked=()=>{
 
         console.log(data);
+       
         
         var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if(data.email.match(mailformat))
@@ -27,6 +36,9 @@ const AdminLogin = (props) => {
                 
              }else{
                 setPasswordError("Invalid Password")
+                setData({
+                   ...data, password:""
+                })
              }
            
 
@@ -59,6 +71,8 @@ const AdminLogin = (props) => {
        <input class="input-field" type="text" placeholder="Password" name="password" value={data.password} onChange={(e)=>{onChangeHandler(e)}} />
        </div>
        <h4 class="color-green">{passwordError}</h4>
+
+       {  props.user.adminSignInError && <h4 class="color-green">{props.user.adminSignInError}</h4>     }
       
       <h3 class=" u"> Forgot your password? </h3>
       <button class="signIn-btn btn text-align-center btn-bg-green" onClick={()=>{AdminLoginClicked()}}>SIGN IN </button>
@@ -70,7 +84,8 @@ const AdminLogin = (props) => {
     <h1 class="color-white text-align-center hello-voter">Hello, voter!</h1>
     <h3 class="color-white text-align-center details ">Enter your personal details <br/>and get started with your voting process
 in just a few steps.</h3>
-    
+
+
     <button class="signIn-btn btn text-align-center btn-bg-transparent ">Register </button>
   </div>
   

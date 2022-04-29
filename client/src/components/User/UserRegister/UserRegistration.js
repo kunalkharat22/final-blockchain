@@ -7,8 +7,12 @@ import { connect } from 'react-redux';
 import {firebaseApp ,auth} from "../../../firebase"
 
 const UserRegistration = (props) => {
+
+ 
+
   
     console.log(props.user)
+   
 
     const [data,setData]=useState({
         adhar:"",
@@ -18,7 +22,21 @@ const UserRegistration = (props) => {
     const [adharerror,setAdharError]=useState(null)
 
     const [otpClicked,setOtpClicked]=useState(false)
+
+    useEffect(() => {
+      if( props.user.invalidAdhar || props.user.otpInvalid){
+          setData({
+          adhar:"",
+          otp:"",
+      })
+      setOtpClicked(false)
+      $("#otp").removeClass("color-green");
+      }
+  
+    },[props.user.invalidAdhar,props.user.otpInvalid]);
    
+  
+
   const onChangeHandler=(e)=>{         
            setData({...data,[e.target.name]:e.target.value})   
   } 
@@ -40,7 +58,17 @@ var verify = new firebaseApp.auth.RecaptchaVerifier('recaptcha-container', {
            props.sendOtp(data,verify)
           
         }else{
-          setAdharError("invalid adhar")
+          setAdharError("invalid adhar")          
+        
+        setData({
+          adhar:"",
+          otp:"",
+      })
+      setOtpClicked(false)
+      $("#otp").removeClass("color-green");
+
+
+
         }
        
       }       
@@ -96,10 +124,15 @@ var verify = new firebaseApp.auth.RecaptchaVerifier('recaptcha-container', {
       
       {  props.user.otpsent && <h4 class="color-green"> Verify OTP sent to your registered phone no. linked to your Aadhar</h4>
       }
+        {  props.user.invalidAdhar && <h4 class="color-green">{props.user.invalidAdhar} </h4>
+      }
        <div class="input-field-cont">
        <i class="fa fa-key icon"></i>
        <input class="input-field" type="text" placeholder="Otp" name="otp" value={data.otp} onChange={(e)=>{onChangeHandler(e)}} />
        </div>
+       
+       {  props.user.otpInvalid && <h4 class="color-green">{props.user.otpInvalid} </h4>
+      }
       
   
     <button class="signIn-btn btn text-align-center btn-bg-green " onClick={(e)=>{VerifyOtp(e)}} >Verify Otp </button>
