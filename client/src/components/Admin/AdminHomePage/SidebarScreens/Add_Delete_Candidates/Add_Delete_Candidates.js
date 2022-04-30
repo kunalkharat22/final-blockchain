@@ -7,19 +7,31 @@ import "./Add_Delete_Candidates.css"
 
 function Add_Delete_Candidates(props) {
 const [active,setActive]=useState(1)
+
 const [data,setData]=useState({
     name:"",
     party:"",
     qualification:""
 })
 
+const [error,setError]=useState(null)
+
 const onChangeHandler=(e)=>{
     setData({...data,[e.target.name]:e.target.value})   
-}  
+} 
 
 const AddCandidates=()=>{
     console.log(data);
-    props.addCandidates(data);
+   
+
+    if(!data.name || !data.party ||!data.qualification){
+       setError("Enter Valid Details")
+    }else{
+        setError(null)
+        props.addCandidates(data);
+    }
+
+   
 }
 
 const DeleteCandidate=(id)=>{
@@ -44,6 +56,8 @@ const DeleteCandidate=(id)=>{
               
                
                <input type="text" placeholder='Enter Qualification' name="qualification" value={data.qualification} onChange={(e)=>{onChangeHandler(e)}}></input>
+                
+               { error && <h4 class="color-green mt-20 ">{error}</h4>     }
             </div>
             <button class="signIn-btn btn text-align-center bg-green1" onClick={()=>{AddCandidates()}}>Add</button>
             </div>:

@@ -56,9 +56,9 @@ export const initContract=() => async (dispatch,getState) => {
 
   if(deployedNetwork){
       const web3=getState().web3Reducer.web3;
-      const ElectionInstance = new web3.eth.Contract( Election.abi, deployedNetwork.address );
-      
-      //setElectionInstance(ElectionInstance)
+     if(web3){
+      const ElectionInstance = new web3.eth.Contract( Election.abi, deployedNetwork.address );     
+     
 
       console.log(ElectionInstance);
       dispatch({ type: INIT_ELECTION_CONTRACT,payload:ElectionInstance }); 
@@ -70,6 +70,7 @@ export const initContract=() => async (dispatch,getState) => {
      }
      else{
        console.log("Election contract not found");
+     }
      }
 }
 
@@ -112,7 +113,7 @@ export const addCandidates=(data) => async (dispatch,getState) => {
      
       
      getState().web3Reducer.ElectionInstance.events.AddedEvent({
-      fromBlock: 0
+      fromBlock: 'latest'
    }, function(error, event){
      if(error){   
       dispatch({ type: ADD_CANDIDATES_FAILURE, });
@@ -135,12 +136,25 @@ export const VoteCandidate=(id) => async (dispatch,getState) => {
   getState().web3Reducer.ElectionInstance.methods.vote(id).send({from : getState().web3Reducer.account });
   
   getState().web3Reducer.ElectionInstance.events.votedEvent({
-    fromBlock: 0
+    fromBlock: 'latest'
  }, function(error, event){
    if(error){
     dispatch({ type: VOTE_CANDIDATE_FAILURE });
    }else{
      console.log(event);
+     database.ref('usersDetails/' + getState().user.userInfo.uid).update({          
+      isVoted:true  
+      
+    }, (error) => {
+      if (error) {
+        // The write failed...       
+        console.log(error);
+      } else {
+        console.log("userVoted chages updates on firebase ");
+      }
+      
+    }); 
+
     dispatch({ type: VOTE_CANDIDATE_SUCCESS });
     }
    })

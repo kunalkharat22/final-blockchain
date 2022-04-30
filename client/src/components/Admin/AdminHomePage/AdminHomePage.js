@@ -21,8 +21,16 @@ const AdminHomePage = (props) => {
       console.log(web3Data);
     
     useEffect(()=>{        
-      props.initWeb3();      
+
+      if(props.user &&  !props.user.isAdmin){  
+        alert("sending to user/home")
+        props.history.push("/user/home")
+      }  else{
+       props.initWeb3();  
+      }
     },[])
+
+    
 
 
      return (

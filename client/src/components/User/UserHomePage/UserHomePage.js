@@ -15,8 +15,16 @@ const UserHomePage = (props) => {
         } =web3Data
       console.log(web3Data);
     
-    useEffect(()=>{        
-      props.initWeb3();      
+    useEffect(()=>{      
+      console.log(props.user);     
+       if(props.user  && props.user.isAdmin){
+         props.history.push("/admin/home")
+       }  else{
+         console.log("intiWeb");
+        props.initWeb3();  
+        
+       }
+         
     },[])
 
       const vote=(id)=>{
@@ -50,8 +58,9 @@ const UserHomePage = (props) => {
       
     <div className='comp-right'>
       <div class="comp-right-wrapper">
-      <CandidateList candidatedList={candidates} vote={vote} isVoted={props.user.userProfile.isVoted}>
-</CandidateList>
+        {!props.user.loading && props.user.userProfile.isVoted &&  <div> Your Vote has been casted </div> }
+      {!props.user.loading && !props.user.userProfile.isVoted  && props.web3.candidateLoading&& <CandidateList candidatedList={candidates} vote={vote} isVoted={props.user.userProfile.isVoted}>
+</CandidateList>}
      </div>
   
            </div>            

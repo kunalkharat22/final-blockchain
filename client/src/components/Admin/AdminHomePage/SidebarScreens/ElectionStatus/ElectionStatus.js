@@ -14,7 +14,7 @@ function ElectionStatus(props) {
         
           fetchData()     
         
-    })
+    },[])
   
     const changePhase=()=>{
 

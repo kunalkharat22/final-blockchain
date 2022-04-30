@@ -77,28 +77,24 @@ export const  userReducer=(state=initialState,action)=>{
                 return{
                    ...state,
                    isVerifying: true, 
+                   loading:true
                 }
          case VERIFY_AUTH_SUCCESS:
                     return{
                        ...state,
                        isVerifying: false, 
+                       loading:false
                     }
          
-            
-     case USER_SIGNIN_REQUEST:
-         return{
-            ...state,
-            loading:true , 
-         }
          
      case USER_SIGNIN_SUCCESS:
         return{
             ...state,
-            loading:false,
             userInfo:action.payload.user,
             userProfile:action.payload.userProfile,
-            loading: false,
             isAuthenticated: true,
+            isVerifying: false, 
+            loading:false
          }
      
      case USER_SIGNIN_FAIL:
@@ -118,7 +114,8 @@ export const  userReducer=(state=initialState,action)=>{
          return{
             ...state,
             loading:false,
-            adminSignInError:action.payload
+            adminSignInError:action.payload,
+            
          }
 
       case ADMIN_SIGNIN_SUCCESS:
@@ -127,8 +124,9 @@ export const  userReducer=(state=initialState,action)=>{
             isAdmin:true,
             loading:false,
             adminInfo:action.payload,
-            loading: false,
             isAuthenticated: true,
+            isVerifying: false, 
+            loading:false          
          }
 
      default :

@@ -85,7 +85,7 @@ modifier onlyAdmin() {
 
         // update candidate vote Count
         candidates[_candidateId].voteCount ++;
-           emit votedEvent(_candidateId);
+       emit votedEvent(_candidateId);
     }
     
 function getOwner() public view returns (address) {

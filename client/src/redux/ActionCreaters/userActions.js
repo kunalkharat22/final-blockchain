@@ -40,8 +40,6 @@ export const verifyAuth = () => (dispatch,getState) => {
         console.log("no user/admin");
       }
      
-      
-      dispatch({ type: VERIFY_AUTH_SUCCESS});
     });
 
 
@@ -61,7 +59,7 @@ export const signin = (user) => async (dispatch,getState) => {
   userProfile.on('value', (snapshot) => {
   const data = snapshot.val();
   dispatch({ type: USER_SIGNIN_SUCCESS,payload:{user,userProfile:data}});
- console.log(data);
+  console.log(data);
 
 }); 
 

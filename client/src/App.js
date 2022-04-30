@@ -24,17 +24,18 @@ import {logoutUser} from "./redux/ActionCreaters/userActions"
 import {database} from './firebase';
 
 function App(props) {
-  const { isAuthenticated, isVerifying , isAdmin={isAdmin}} = props;
+  const { isAuthenticated, isVerifying , isAdmin} = props;
   useEffect(()=>{
-  //props.logoutUser()
+    //props.logoutUser()
+     
+    /* database.ref('users/'+"3333333333").set({
+      name:"desale",
+      ph:"7083192202"
+    })
+    */
    
-  /* database.ref('users/'+"3333333333").set({
-    name:"desale",
-    ph:"7083192202"
-  })
-  */
+    })
  
-  })
       
   let history = useHistory();  
          return (
@@ -43,7 +44,7 @@ function App(props) {
         <Router history={history}>
 
         <Switch>          
-        <Route exact path="/" component={withRouter(HomePage)} history={history}></Route>            
+        <Route exact path="/" component={withRouter(HomePage)} history={history}></Route>          
               
        
        <UnProtectedRoute
@@ -58,8 +59,7 @@ function App(props) {
       /> 
         
       
-   {  
-      !isAdmin &&  <ProtectedRoute
+    <ProtectedRoute
         exact
         path="/user/home"
         component={withRouter(UserHomePage)}
@@ -69,7 +69,7 @@ function App(props) {
         isAdmin={isAdmin}  
         forAdmin={false}
         />
-        }
+        
            
       
       <UnProtectedRoute
@@ -84,7 +84,7 @@ function App(props) {
       /> 
         
       
-     { isAdmin && 
+     
        <ProtectedRoute
         exact
         path="/admin/home"
@@ -94,7 +94,7 @@ function App(props) {
         isVerifying={isVerifying}
         isAdmin={isAdmin}
         forAdmin={true}
-      />}
+      />
       
         <Route exact path="*" component={withRouter(NotFound)} history={history} ></Route> 
       

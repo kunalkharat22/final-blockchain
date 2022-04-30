@@ -24,6 +24,7 @@ const UserRegistration = (props) => {
     const [otpClicked,setOtpClicked]=useState(false)
 
     useEffect(() => {
+     
       if( props.user.invalidAdhar || props.user.otpInvalid){
           setData({
           adhar:"",
