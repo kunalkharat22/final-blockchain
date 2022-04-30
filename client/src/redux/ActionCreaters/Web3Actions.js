@@ -15,6 +15,7 @@ import {
   
 import Election from "../../contracts/Election.json";
 import getWeb3 from "../../getWeb3";
+import {auth,firebaseApp,database } from "../../firebase";
 
   
   
@@ -116,16 +117,16 @@ export const addCandidates=(data) => async (dispatch,getState) => {
      if(error){   
       dispatch({ type: ADD_CANDIDATES_FAILURE, });
      }else{
+       console.log(event);
       dispatch({ type: ADD_CANDIDATES_SUCCESS, });
       }
      })
 
      dispatch(getCandidates())
     }else{
-      dispatch({ type: ADD_CANDIDATES_FAILURE, });
+      dispatch({ type: ADD_CANDIDATES_FAILURE });
     }
 }
-
 
 export const VoteCandidate=(id) => async (dispatch,getState) => { 
    
@@ -139,12 +140,14 @@ export const VoteCandidate=(id) => async (dispatch,getState) => {
    if(error){
     dispatch({ type: VOTE_CANDIDATE_FAILURE });
    }else{
+     console.log(event);
     dispatch({ type: VOTE_CANDIDATE_SUCCESS });
     }
    })
 
 
 }
+
 
 export const DeleteCandidate=(id) => async (dispatch,getState) => { 
    

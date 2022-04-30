@@ -32,7 +32,7 @@ const Vote=(id)=>{
               <td>{candidate.party}</td> 
               <td>{candidate.age}</td>             
               <td>{candidate.qualification}</td>  
-              <button onClick={()=>{Vote(candidate.id)}} className="delete-btn" >Vote</button>
+              { !props.isVoted && <button onClick={()=>{Vote(candidate.id)}} className="delete-btn" >Vote</button>}
             </tr>
             
             )

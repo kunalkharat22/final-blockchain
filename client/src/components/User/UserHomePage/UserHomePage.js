@@ -50,7 +50,7 @@ const UserHomePage = (props) => {
       
     <div className='comp-right'>
       <div class="comp-right-wrapper">
-      <CandidateList candidatedList={candidates} vote={vote}>
+      <CandidateList candidatedList={candidates} vote={vote} isVoted={props.user.userProfile.isVoted}>
 </CandidateList>
      </div>
   
@@ -61,7 +61,7 @@ const UserHomePage = (props) => {
     );
 };
 
-const mapStateToProps=({web3Reducer})=>{
-  return {web3Reducer}
+const mapStateToProps=({web3Reducer,user})=>{
+  return {web3Reducer,user}
 }
 export default connect(mapStateToProps,{initWeb3,VoteCandidate})(UserHomePage);

@@ -31,9 +31,7 @@ export const verifyAuth = () => (dispatch,getState) => {
       
      else if (user !== null) {
        
-        dispatch(signin(user));         
-
-
+        dispatch(signin(user));       
         //get Details of this user from firebase
         console.log(user);
         console.log(`${user.uid} logged In as User`);
@@ -56,8 +54,16 @@ export const Adminsignin = (user) => async (dispatch) => {
 }
 
 export const signin = (user) => async (dispatch,getState) => {
+
   console.log(user);
-  dispatch({ type: USER_SIGNIN_SUCCESS,payload:user});   
+
+  var userProfile = firebaseApp.database().ref('usersDetails/' + user.uid);
+  userProfile.on('value', (snapshot) => {
+  const data = snapshot.val();
+  dispatch({ type: USER_SIGNIN_SUCCESS,payload:{user,userProfile:data}});
+ console.log(data);
+
+}); 
 
    
 
@@ -119,7 +125,7 @@ export const verifyOtp=(otp) => async (dispatch,getState) => {{
        
           database.ref('usersDetails/'+user1.uid).set({
             adhar:dataAdhar,
-            isVotes:false
+            isVoted:false
           })         
             
           
@@ -132,8 +138,7 @@ export const verifyOtp=(otp) => async (dispatch,getState) => {{
             } else {
               console.log("User Registered - Creating Copy");
             }
-          });
-          
+          });         
        
          
         } 

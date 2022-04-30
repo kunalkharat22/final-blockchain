@@ -95,7 +95,8 @@ export const  userReducer=(state=initialState,action)=>{
         return{
             ...state,
             loading:false,
-            userInfo:action.payload,
+            userInfo:action.payload.user,
+            userProfile:action.payload.userProfile,
             loading: false,
             isAuthenticated: true,
          }
