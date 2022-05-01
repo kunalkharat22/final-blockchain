@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import {getElectionPhase} from "../../../../redux/ActionCreaters/Web3Actions"
 import  "./Result"
 
-import CandidateList  from './ListOfCandidates/List_candidates';
 import List_candidates from './ListOfCandidates/List_candidates';
 
 const Result = (props) => {

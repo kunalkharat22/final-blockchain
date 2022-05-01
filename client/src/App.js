@@ -21,7 +21,6 @@ import NotFound  from "./components/NotFound/NotFound";
 
 import { connect } from 'react-redux';
 import {logoutUser} from "./redux/ActionCreaters/userActions"
-import {database} from './firebase';
 
 function App(props) {
   const { isAuthenticated, isVerifying , isAdmin} = props;

@@ -50,7 +50,7 @@ modifier onlyAdmin() {
       constructor () public {  
         owner = msg.sender;
         candidateCount = 0;
-        voteCount=0
+        voteCount=0;
         start = true;
         end = false;     
 
