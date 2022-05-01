@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 
 
 import CandidateList from "../CandidateList/CandidateList"
+import Results from "../UserHomePage/Results/Result"
 import Navbar from  "./Navbar"
 import {initWeb3,VoteCandidate} from "../../../redux/ActionCreaters/Web3Actions"
 import { connect } from 'react-redux';
@@ -9,6 +10,8 @@ import "./UserHomePage.css"
 
 const UserHomePage = (props) => {
     
+  const [activeIndex, setActiveIndex] = useState(0);
+
     const web3Data = props.web3Reducer;
     const {  web3,  web3Loading, web3LoadingError, ElectionInstance,contractOwnerAddress,  candidates,  candidateLoading,
       get_candidateerror, account
@@ -53,23 +56,33 @@ const UserHomePage = (props) => {
              }
               */
             }
-             <Navbar account={account}></Navbar>
+             <Navbar  activeIndex={activeIndex} setActiveIndex={setActiveIndex} account={account}></Navbar>
       </div>
       
       
     <div className='comp-right'>
       <div class="comp-right-wrapper">
-        {!props.user.loading && props.user.userProfile.isVoted &&  <div> Your Vote has been casted </div> }
-      {!props.user.loading && !props.user.userProfile.isVoted  && props.web3.candidateLoading&& <CandidateList candidatedList={candidates} vote={vote} isVoted={props.user.userProfile.isVoted}>
-</CandidateList>}
+          <div class="comp-right-wrapper">
+    {!props.user.loading && props.user.userProfile.isVoted &&  <div> Your Vote has been casted </div> }
+   
+     {
+        activeIndex ==0 ? !props.user.loading && !props.user.userProfile.isVoted  && !props.web3Reducer.candidateLoading && <CandidateList candidatedList={candidates} vote={vote} isVoted={props.user.userProfile.isVoted}>
+        </CandidateList> :
+      <Results ElectionInstance={ElectionInstance} changeElectionPhase={props.changeElectionPhase} Web3Reducer={props.web3Reducer} getElectionPhase={props.getElectionPhase}></Results>    
+          
+        
+     }
+
+       
      </div>
   
            </div>            
         </div>
             
         </div>
+        </div>
     );
-};
+ }
 
 const mapStateToProps=({web3Reducer,user})=>{
   return {web3Reducer,user}

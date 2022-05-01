@@ -21,7 +21,9 @@ const Navbar = (props) => {
           
       <div className='nav1'>
         
-        <a className="a-active" ><i class="fa fa-signal"></i> Voting Area </a>
+        <a  onClick={() => props.setActiveIndex(0) }  className={props.activeIndex==0 ? "a-active" : null }><i class="fa fa-signal"></i> Voting Area </a>
+        <a  onClick={() => props.setActiveIndex(1) } className={props.activeIndex==1 ? "a-active" : null }><i class="fa fa-signal"></i> Results </a>
+       
         <a  onClick={() => logout()} ><i class="fa fa-sign-out-alt"></i>Logout </a>
           
   </div> 
