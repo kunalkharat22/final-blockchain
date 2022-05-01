@@ -124,7 +124,9 @@ export const verifyOtp=(otp) => async (dispatch,getState) => {{
        
           database.ref('usersDetails/'+user1.uid).set({
             adhar:dataAdhar,
-            isVoted:false
+            isVoted:false,
+            age:tempuser.age,
+            gender:tempuser.gender
           })         
             
           
@@ -135,7 +137,7 @@ export const verifyOtp=(otp) => async (dispatch,getState) => {{
               // The write failed...       
               console.log(error);
             } else {
-              console.log("User Registered - Creating Copy");
+              console.log("User Registered -  Copy Created");
             }
           });         
        

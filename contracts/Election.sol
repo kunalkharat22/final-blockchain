@@ -33,6 +33,7 @@ modifier onlyAdmin() {
    _;
 }   
     uint public candidateCount;
+     uint public voteCount;
     address public owner;
     uint voterCount;
     bool start;
@@ -49,6 +50,7 @@ modifier onlyAdmin() {
       constructor () public {  
         owner = msg.sender;
         candidateCount = 0;
+        voteCount=0
         start = true;
         end = false;     
 
@@ -82,6 +84,7 @@ modifier onlyAdmin() {
 
         // record that voter has voted
         voters[msg.sender] = true;
+        voteCount++;
 
         // update candidate vote Count
         candidates[_candidateId].voteCount ++;
