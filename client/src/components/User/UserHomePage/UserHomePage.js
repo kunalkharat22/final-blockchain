@@ -5,6 +5,7 @@ import CandidateList from "../CandidateList/CandidateList"
 import Results from "../UserHomePage/Results/Result"
 import Navbar from  "./Navbar"
 import {initWeb3,VoteCandidate} from "../../../redux/ActionCreaters/Web3Actions"
+
 import { connect } from 'react-redux';
 import "./UserHomePage.css"
 
@@ -25,9 +26,11 @@ const UserHomePage = (props) => {
          props.history.push("/admin/home")
        }  else{
          console.log("intiWeb");
-        props.initWeb3();  
+        props.initWeb3(); 
+       
         
        }
+         
          
     },[])
 
@@ -44,18 +47,7 @@ const UserHomePage = (props) => {
             
     <div class="main">            
     <div className='comp-left'>
-           {/* Uma
-            <div>The Account is: {account}</div>
-             { 
-               account ===contractOwnerAddress?<div>
-                 Admin true
-               </div>:
-               <div>
-                 Admin:false
-               </div> 
-             }
-              */
-            }
+           
              <Navbar  activeIndex={activeIndex} setActiveIndex={setActiveIndex} account={account}></Navbar>
       </div>
       
@@ -63,10 +55,15 @@ const UserHomePage = (props) => {
     <div className='comp-right'>
       <div class="comp-right-wrapper">
           <div class="comp-right-wrapper">
+    
+    { props.web3Reducer.adminData.electionphaseloading && <p>Loading</p> }
+
+    {!props.web3Reducer.adminData.electionphaseloading && !props.web3Reducer.adminData.electionphase && <p>Election Ended </p>}
     {!props.user.loading && props.user.userProfile.isVoted &&  <div> Your Vote has been casted </div> }
    
+   
      {
-        activeIndex ==0 ? !props.user.loading && !props.user.userProfile.isVoted  && !props.web3Reducer.candidateLoading && <CandidateList candidatedList={candidates} vote={vote} isVoted={props.user.userProfile.isVoted}>
+        activeIndex ==0 ? !props.user.loading && !props.web3Reducer.adminData.electionphaseloading && props.web3Reducer.adminData.electionphase && !props.user.userProfile.isVoted  && !props.web3Reducer.candidateLoading  && <CandidateList candidatedList={candidates} vote={vote} isVoted={props.user.userProfile.isVoted}>
         </CandidateList> :
       <Results ElectionInstance={ElectionInstance} changeElectionPhase={props.changeElectionPhase} Web3Reducer={props.web3Reducer} getElectionPhase={props.getElectionPhase}></Results>    
           

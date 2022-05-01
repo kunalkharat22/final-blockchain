@@ -21,8 +21,8 @@ function UserStat(props) {
             //votes from ganache            
         
             const voteCount = await props.web3Reducer.ElectionInstance.methods.voteCount().call()      
-            setVoteCount(voteCount)
-            console.log(voteCount);
+            setVoteCount(parseInt(voteCount))
+            console.log( voteCount);
         //total users from firebase
         var dbRef = database.ref('usersDetails' );
 
@@ -42,16 +42,14 @@ function UserStat(props) {
         setTotalUsers(allUser.length)
         
         console.log( voteCount ,allUser.length-voteCount);
+
         setdisplayPie(true)       
 
     })
 
-    }        
+    }       
           // call the function
-          fetchData()
-
-
-       
+          fetchData()    
 
 
 
