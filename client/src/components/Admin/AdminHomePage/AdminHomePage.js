@@ -8,7 +8,7 @@ import ElectionStatus from "./SidebarScreens/ElectionStatus/ElectionStatus"
 import UserStat from "./SidebarScreens/UserStatistics/UserStat"
 import { connect } from 'react-redux';
 import "./AdminHomePage.css"
-import {initWeb3,addCandidates,changeElectionPhase,DeleteCandidate} from "../../../redux/ActionCreaters/Web3Actions"
+import {initWeb3,addCandidates,changeElectionPhase,DeleteCandidate,getElectionPhase} from "../../../redux/ActionCreaters/Web3Actions"
 
 
 const AdminHomePage = (props) => {
@@ -26,7 +26,6 @@ const AdminHomePage = (props) => {
         alert("sending to user/home")
         props.history.push("/user/home")
       }  else{
-      // alert("initWeb");
        props.initWeb3();  
       }
     },[])
@@ -46,15 +45,16 @@ const AdminHomePage = (props) => {
     <div className='comp-right'>
       <div class="comp-right-wrapper">
      {
-        activeIndex ==0 ? <CandidateList candidates={candidates}></CandidateList> :
+        activeIndex ==0 ? !candidateLoading && <CandidateList candidates={candidates}></CandidateList> :
        (activeIndex ==1 ? <Add_Delete_Candidates addCandidates={props.addCandidates} DeleteCandidate={props.DeleteCandidate} candidates={candidates} Web3Reducer={props.web3Reducer}></Add_Delete_Candidates> :
-        (activeIndex ==2 ? <ElectionStatus ElectionInstance={ElectionInstance} changeElectionPhase={props.changeElectionPhase}></ElectionStatus> : <UserStat></UserStat>   
+        (activeIndex ==2 ? <ElectionStatus ElectionInstance={ElectionInstance} changeElectionPhase={props.changeElectionPhase} Web3Reducer={props.web3Reducer} getElectionPhase={props.getElectionPhase}></ElectionStatus> : <UserStat></UserStat>   
           )
         ) 
      }
      </div>
   
-           </div>            
+           </div>  
+                     
         </div>
     );
 };
@@ -63,4 +63,4 @@ const AdminHomePage = (props) => {
 const mapStateToProps=({web3Reducer,user})=>{
   return {web3Reducer,user}
 }
-export default connect(mapStateToProps,{initWeb3,addCandidates,changeElectionPhase,DeleteCandidate})(AdminHomePage);
+export default connect(mapStateToProps,{initWeb3,addCandidates,getElectionPhase,changeElectionPhase,DeleteCandidate})(AdminHomePage);

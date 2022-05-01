@@ -2,14 +2,14 @@ import {
     INIT_BLOCKCHAIN_REQUEST,INIT_BLOCKCHAIN_SUCCESS,INIT_BLOCKCHAIN_FAIL,
     GET_CANDIDATES_REQUEST,GET_CANDIDATES_SUCCESS,GET_CANDIDATES_FAILURE,
     VOTE_CANDIDATE_REQUEST,VOTE_CANDIDATE_FAILURE,VOTE_CANDIDATE_SUCCESS,
-    ADD_CANDIDATES_REQUEST,ADD_CANDIDATES_SUCCESS,ADD_CANDIDATES_FAILURE,
-    
+    ADD_CANDIDATES_REQUEST,ADD_CANDIDATES_SUCCESS,ADD_CANDIDATES_FAILURE,    
     STARTELECTION,
     STOPELECTION,
     SET_ACCOUNT,INIT_ELECTION_CONTRACT,
     ELECTION_PHASE_CHANGE_REQUEST,ELECTION_PHASE_CHANGE_SUCCESS,ELECTION_PHASE_CHANGE_FAILURE,
-    DELETE_CANDIDATES_REQUEST,DELETE_CANDIDATES_FAILURE,DELETE_CANDIDATES_SUCCESS
-  
+    DELETE_CANDIDATES_REQUEST,DELETE_CANDIDATES_FAILURE,DELETE_CANDIDATES_SUCCESS,
+    GET_ELECTION_PHASE_REQUEST,GET_ELECTION_PHASE_SUCCESS,GET_ELECTION_PHASE_FAILURE
+
   } from "../actions"
 
   
@@ -160,8 +160,9 @@ export const VoteCandidate=(id) => async (dispatch,getState) => {
       }
       
     }); 
-
+   
     dispatch({ type: VOTE_CANDIDATE_SUCCESS });
+    dispatch(initWeb3())
    
     }
    })
@@ -210,22 +211,25 @@ export const  changeElectionPhase=(data) => async (dispatch,getState) => {
   }
     
     getState().web3Reducer.ElectionInstance.events.VotingStartedEvent({
-      fromBlock: 0
+      fromBlock: 'latest'
    }, function(error, event){
      if(error){
       dispatch({ type: ELECTION_PHASE_CHANGE_FAILURE });
      }else{
       dispatch({ type: ELECTION_PHASE_CHANGE_SUCCESS });
+     dispatch( getElectionPhase())
+
       }
      })
 
      getState().web3Reducer.ElectionInstance.events.VotingEndedEvent({
-      fromBlock: 0
+      fromBlock: 'latest'
    }, function(error, event){
      if(error){
       dispatch({ type: ELECTION_PHASE_CHANGE_FAILURE });
      }else{
       dispatch({ type: ELECTION_PHASE_CHANGE_SUCCESS });
+      dispatch( getElectionPhase())
       }
      })
 
@@ -233,6 +237,13 @@ export const  changeElectionPhase=(data) => async (dispatch,getState) => {
 
   }
 
-export const getElectionPhase=()=>async ()=>{
+export const getElectionPhase=()=>async (dispatch,getState)=>{
 
+ 
+  dispatch({ type: GET_ELECTION_PHASE_REQUEST });
+  
+  const state = await getState().web3Reducer.ElectionInstance.methods.getStart().call()
+ 
+    dispatch({ type: GET_ELECTION_PHASE_SUCCESS,payload:state });
+   
 }
