@@ -14,10 +14,13 @@ function List(props) {
             <th>Party</th>
             <th>Qualification</th>
         </tr>
+       
     </thead>
     <tbody>
-    {props.candidates&&props.candidates[0]&&props.candidates.map((candidate)=>{
-           return(
+    {props.candidates&&props.candidates[0]&&props.candidates.map((candidate)=>{           
+          if(candidate.id !='0'){
+            return(
+          
            <tr>
              <td>{candidate.id}</td>
               <td>{candidate.name}</td>
@@ -28,13 +31,19 @@ function List(props) {
             <button  class="delete-btn" onClick={()=>{props.DeleteCandidate(candidate.id)}}>Delete</button> 
               
             </tr>
+                        
             
             )
+            }
        })
     } 
      
     </tbody>
 </table>
+ {  props.Web3Reducer.adminData.loading && <h4 class="color-green mt-20 ">Loading</h4>     }
+           
+{  !props.Web3Reducer.adminData.loading && props.Web3Reducer.adminData.deleteCandidateSuccess && <h4 class="color-green mt-20 ">Candidate Deleted Succesfully</h4>     }
+           
 
         </div>
     );

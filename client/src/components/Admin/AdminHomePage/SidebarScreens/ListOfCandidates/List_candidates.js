@@ -22,7 +22,8 @@ function List_candidates(props) {
 
 
         {props.candidates&&props.candidates[0]&&props.candidates.map((candidate)=>{
-           return(
+           if(candidate.id !='0'){
+          return(
            <tr>
              <td>{candidate.id}</td>
               <td>{candidate.name}</td>
@@ -32,7 +33,7 @@ function List_candidates(props) {
               
             </tr>
             
-            )
+            )}
        })
     } 
 

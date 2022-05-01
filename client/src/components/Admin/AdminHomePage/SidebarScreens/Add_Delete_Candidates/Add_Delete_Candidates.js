@@ -6,6 +6,8 @@ import "./Add_Delete_Candidates.css"
 
 
 function Add_Delete_Candidates(props) {
+   
+   
 const [active,setActive]=useState(1)
 
 const [data,setData]=useState({
@@ -29,6 +31,11 @@ const AddCandidates=()=>{
     }else{
         setError(null)
         props.addCandidates(data);
+        setData({
+            name:"",
+            party:"",
+            qualification:""
+        })
     }
 
    
@@ -58,6 +65,11 @@ const DeleteCandidate=(id)=>{
                <input type="text" placeholder='Enter Qualification' name="qualification" value={data.qualification} onChange={(e)=>{onChangeHandler(e)}}></input>
                 
                { error && <h4 class="color-green mt-20 ">{error}</h4>     }
+               {  props.Web3Reducer.adminData.loading && <h4 class="color-green mt-20 ">Loading</h4>     }
+           
+               {  !props.Web3Reducer.adminData.loading && props.Web3Reducer.adminData.addCandidateSuccess && <h4 class="color-green mt-20 ">Candidate Added Succesfully</h4>     }
+           
+           
             </div>
             <button class="signIn-btn btn text-align-center bg-green1" onClick={()=>{AddCandidates()}}>Add</button>
             </div>:
@@ -65,7 +77,7 @@ const DeleteCandidate=(id)=>{
             <div>
         
             <div className=''>
-                <List candidates={props.candidates} DeleteCandidate={DeleteCandidate}></List>
+                <List candidates={props.candidates} DeleteCandidate={DeleteCandidate} Web3Reducer={props.Web3Reducer}></List>
             </div>
             </div>
             }

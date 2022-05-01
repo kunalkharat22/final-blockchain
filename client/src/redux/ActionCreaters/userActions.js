@@ -37,6 +37,7 @@ export const verifyAuth = () => (dispatch,getState) => {
         console.log(`${user.uid} logged In as User`);
       }
       else{
+        dispatch({type:VERIFY_AUTH_SUCCESS}); 
         console.log("no user/admin");
       }
      

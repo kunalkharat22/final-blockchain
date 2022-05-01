@@ -16,6 +16,7 @@ const UserHomePage = (props) => {
       console.log(web3Data);
     
     useEffect(()=>{      
+      
       console.log(props.user);     
        if(props.user  && props.user.isAdmin){
          props.history.push("/admin/home")

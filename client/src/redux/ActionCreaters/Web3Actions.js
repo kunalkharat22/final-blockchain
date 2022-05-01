@@ -3,7 +3,7 @@ import {
     GET_CANDIDATES_REQUEST,GET_CANDIDATES_SUCCESS,GET_CANDIDATES_FAILURE,
     VOTE_CANDIDATE_REQUEST,VOTE_CANDIDATE_FAILURE,VOTE_CANDIDATE_SUCCESS,
     ADD_CANDIDATES_REQUEST,ADD_CANDIDATES_SUCCESS,ADD_CANDIDATES_FAILURE,
-    DELETECANDIDATE,
+    
     STARTELECTION,
     STOPELECTION,
     SET_ACCOUNT,INIT_ELECTION_CONTRACT,
@@ -20,6 +20,11 @@ import {auth,firebaseApp,database } from "../../firebase";
   
   
 export const initWeb3=() => async (dispatch,getState) => {
+
+  const web3 = await getWeb3();
+  
+  console.log(web3);
+
     window.ethereum.on("accountsChanged", async function() {
         // Time to reload your interface with accounts[0]!
         accounts = await web3.eth.getAccounts();
@@ -31,9 +36,7 @@ export const initWeb3=() => async (dispatch,getState) => {
        
       });
       
-      const web3 = await getWeb3();
-      //setweb3(web3)
-      console.log(web3);
+    
   
       // Use web3 to get the user's accounts.
       let accounts = await web3.eth.getAccounts();
@@ -57,14 +60,13 @@ export const initContract=() => async (dispatch,getState) => {
   if(deployedNetwork){
       const web3=getState().web3Reducer.web3;
      if(web3){
-      const ElectionInstance = new web3.eth.Contract( Election.abi, deployedNetwork.address );     
+      const ElectionInstance = new web3.eth.Contract( Election.abi, deployedNetwork.address );   
      
 
       console.log(ElectionInstance);
       dispatch({ type: INIT_ELECTION_CONTRACT,payload:ElectionInstance }); 
       
-      dispatch(getCandidates())
-      
+      dispatch(getCandidates())     
 
      
      }
@@ -81,6 +83,7 @@ export const getCandidates=() => async (dispatch,getState) => {
 
     if(getState().web3Reducer.ElectionInstance){
         //setOwner
+        console.log(getState().web3Reducer.ElectionInstance);
       const owner = await getState().web3Reducer.ElectionInstance.methods.owner().call();
       //setContractOwnerAddress(owner)
       console.log("contractOwner is"+owner);
@@ -91,7 +94,8 @@ export const getCandidates=() => async (dispatch,getState) => {
        for (var i = 1; i <=candidateCount; i++) {
          const candidate = await getState().web3Reducer.ElectionInstance.methods.candidates(i).call()
          data=[...data,candidate]
-       }  
+      }  
+
        console.log(data);                
      
        dispatch({ type: GET_CANDIDATES_SUCCESS,payload:data }); 
@@ -120,10 +124,11 @@ export const addCandidates=(data) => async (dispatch,getState) => {
      }else{
        console.log(event);
       dispatch({ type: ADD_CANDIDATES_SUCCESS, });
+      dispatch(initWeb3())
+
       }
      })
 
-     dispatch(getCandidates())
     }else{
       dispatch({ type: ADD_CANDIDATES_FAILURE });
     }
@@ -141,6 +146,7 @@ export const VoteCandidate=(id) => async (dispatch,getState) => {
    if(error){
     dispatch({ type: VOTE_CANDIDATE_FAILURE });
    }else{
+
      console.log(event);
      database.ref('usersDetails/' + getState().user.userInfo.uid).update({          
       isVoted:true  
@@ -156,6 +162,7 @@ export const VoteCandidate=(id) => async (dispatch,getState) => {
     }); 
 
     dispatch({ type: VOTE_CANDIDATE_SUCCESS });
+   
     }
    })
 
@@ -170,7 +177,7 @@ export const DeleteCandidate=(id) => async (dispatch,getState) => {
   getState().web3Reducer.ElectionInstance.methods.deleteCandidate(id).send({from : getState().web3Reducer.account });
   
   getState().web3Reducer.ElectionInstance.events.DeletedEvent({
-    fromBlock: 0
+    fromBlock: 'latest'
  }, function(error, event){
    if(error){
      console.log(error);
@@ -178,6 +185,8 @@ export const DeleteCandidate=(id) => async (dispatch,getState) => {
    }else{
      console.log(event);
     dispatch({ type: DELETE_CANDIDATES_SUCCESS });
+    dispatch(initWeb3())
+
     }
    })
 
@@ -223,3 +232,7 @@ export const  changeElectionPhase=(data) => async (dispatch,getState) => {
 
 
   }
+
+export const getElectionPhase=()=>async ()=>{
+
+}

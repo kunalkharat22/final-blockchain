@@ -18,20 +18,24 @@ const AdminHomePage = (props) => {
     const {  web3,  web3Loading, web3LoadingError, ElectionInstance,contractOwnerAddress,  candidates,  candidateLoading,
       get_candidateerror, account
         } =web3Data
-      console.log(web3Data);
     
     useEffect(()=>{        
 
-      if(props.user &&  !props.user.isAdmin){  
+      if(props.user &&  !props.user.isAdmin){ 
+
         alert("sending to user/home")
         props.history.push("/user/home")
       }  else{
+      // alert("initWeb");
        props.initWeb3();  
       }
     },[])
 
     
 
+    if (!web3) {
+      return <div>Loading Web3, accounts, and contract...</div>;
+    }
 
      return (
     <div class="main">            
@@ -43,7 +47,7 @@ const AdminHomePage = (props) => {
       <div class="comp-right-wrapper">
      {
         activeIndex ==0 ? <CandidateList candidates={candidates}></CandidateList> :
-       (activeIndex ==1 ? <Add_Delete_Candidates addCandidates={props.addCandidates} DeleteCandidate={props.DeleteCandidate} candidates={candidates}></Add_Delete_Candidates> :
+       (activeIndex ==1 ? <Add_Delete_Candidates addCandidates={props.addCandidates} DeleteCandidate={props.DeleteCandidate} candidates={candidates} Web3Reducer={props.web3Reducer}></Add_Delete_Candidates> :
         (activeIndex ==2 ? <ElectionStatus ElectionInstance={ElectionInstance} changeElectionPhase={props.changeElectionPhase}></ElectionStatus> : <UserStat></UserStat>   
           )
         ) 
@@ -56,7 +60,7 @@ const AdminHomePage = (props) => {
 };
 
 
-const mapStateToProps=({web3Reducer})=>{
-  return {web3Reducer}
+const mapStateToProps=({web3Reducer,user})=>{
+  return {web3Reducer,user}
 }
 export default connect(mapStateToProps,{initWeb3,addCandidates,changeElectionPhase,DeleteCandidate})(AdminHomePage);
