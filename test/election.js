@@ -1,3 +1,5 @@
+//import { assert } from "console";
+
 var Election =artifacts.require("./Election.sol")
 
 contract("Election",function (accounts) {
@@ -7,9 +9,10 @@ contract("Election",function (accounts) {
     it("initializes with 2 candidates",function(){
         return Election.deployed()  
         .then(function(instance){
-            return instance.candidateCount()
+            return instance.candidatesCount()
         })
         .then((count)=>{
+            
             assert.equal(count,2,"candidates are correct")
         })
     })
@@ -18,26 +21,99 @@ contract("Election",function (accounts) {
         return Election.deployed()  
         .then(function(instance){
             electionInstance=instance
-            return electionInstance.candidates(0);
+            return electionInstance.candidates(1);
         })
         .then((candidate)=>{
-            assert.equal(candidate[1],"Candidate 1","contains correct name ")
+            assert.equal(candidate[1],"Tokyo","contains correct name ")
             assert.equal(candidate[2],0,"contains correct voter count ")
         
-            return electionInstance.candidates(1);
+            return electionInstance.candidates(2);
         
         })
         .then((candidate)=>{
-           assert.equal(candidate[1],"Candidate 2","contains correct name ")
+           assert.equal(candidate[1],"Rio","contains correct name ")
             assert.equal(candidate[2],0,"contains correct voter count ")
         })
     })
+
+    it("adds candidate",async function(){
+      return Election.deployed()  
+      .then(function(instance){
+        electionInstance=instance;
+        
+        return  electionInstance.addCandidate("John","a","ba",{from:accounts[0]});          
+        })
+        .then((receipt)=>{
+             return electionInstance.candidates(3);       
+        })
+        .then((candidate)=>{
+
+          assert.equal(candidate[0],3,"candidate id is correct")     
+      
+      
+      })
+  })
+
+   //delete candidate 
+   it("deletes candidate",async function(){
+    return Election.deployed()  
+    .then(function(instance){
+      electionInstance=instance;
+      
+      return  electionInstance.deleteCandidate(3,{from:accounts[0]});          
+      })
+      .then((receipt)=>{
+           return electionInstance.candidates(3);       
+      })
+      .then((candidate)=>{
+
+        assert.equal(candidate[0],0,"candidate is removed")     
+    
+    
+    })
+})
+   
+  //end election
+  it("Ends Election",function(){
+    return Election.deployed()  
+    .then(function(instance){
+        electionInstance=instance
+        return electionInstance.endElection({from:accounts[0]})
+    })
+    .then((receipt)=>{
+       // end=electionInstance.getEnd()
+       // assert.equal(end,true,"Election Ended Successfully")
+       return electionInstance.getEnd({from:accounts[0]})
+    })
+    .then((end)=>{
+      
+      assert.equal(end,true,"Ended")
+  })
+})
+  
+//start election  
+it("Starts Election",function(){
+  return Election.deployed()  
+  .then(function(instance){
+      electionInstance=instance
+      return electionInstance.startElection({from:accounts[0]})
+  })
+  .then((receipt)=>{
+          return electionInstance.getStart({from:accounts[0]})
+  })
+  .then((start)=>{
+    
+    assert.equal(start,true,"Started")
+})
+})
+
+
 
     it("allows voter to cast a vote",function(){
         return Election.deployed()  
         .then(function(instance){
             electionInstance=instance;
-            candidateId=0;
+            candidateId=1;
             return electionInstance.vote(candidateId,{from:accounts[0]});
         })
         .then((receipt)=>{
@@ -53,17 +129,41 @@ contract("Election",function (accounts) {
          })
     })
 
-    it("throws an exception for double voting", function() {
+    it("Checks if double voting is not", function() {
+      return Election.deployed()  
+        .then(function(instance){
+            electionInstance=instance;
+            candidateId=1;
+            electionInstance.vote(candidateId,{from:accounts[0]});
+            return electionInstance.candidates(candidateId);
+        })
+        .then((candidate)=>{
+          var voteCount=candidate[2]
+          assert.equal(voteCount,1,"Voted for the 1st time")   
+          electionInstance.vote(candidateId,{from:accounts[0]});        
+          return electionInstance.candidates(candidateId);
+        })
+        .then((candidate1)=>{
+          var voteCount=candidate1[2]
+          assert.equal(voteCount,1,"Double Voting is not allowed")  
+        return electionInstance.candidates(candidateId)
+        })
+        
+    })
+      
+
+
+   /*it("throws an exception for double voting", function() {
         return Election.deployed().then(function(instance) {
           electionInstance = instance;
           candidateId = 2;
-          electionInstance.vote(candidateId, { from: accounts[1] });
+          electionInstance.vote(candidateId, { from: accounts[0] });
           return electionInstance.candidates(candidateId);
         }).then(function(candidate) {
           var voteCount = candidate[2];
           assert.equal(voteCount, 1, "accepts first vote");
           // Try to vote again
-          return electionInstance.vote(candidateId, { from: accounts[1] });
+          return electionInstance.vote(candidateId, { from: accounts[0] });
         }).then(assert.fail).catch(function(error) {
           assert(error.message.indexOf('revert') >= 0, "error message must contain revert");
           return electionInstance.candidates(1);
@@ -76,8 +176,8 @@ contract("Election",function (accounts) {
           assert.equal(voteCount, 1, "candidate 2 did not receive any votes");
         });
       });
+    */
     
     
     
 })
-
