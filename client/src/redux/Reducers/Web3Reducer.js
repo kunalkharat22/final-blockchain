@@ -9,7 +9,7 @@ import {
 
   STARTELECTION,
   STOPELECTION,
-  SET_ACCOUNT,INIT_ELECTION_CONTRACT, ELECTION_PHASE_CHANGE_REQUEST, ELECTION_PHASE_CHANGE_SUCCESS,
+  SET_ACCOUNT,INIT_ELECTION_CONTRACT, INIT_ELECTION_CONTRACT_LOADING, ELECTION_PHASE_CHANGE_REQUEST, ELECTION_PHASE_CHANGE_SUCCESS,
 
 
 } from "../actions"
@@ -19,7 +19,8 @@ const initialState={
   web3:null,
   web3Loading:false,
   web3LoadingError:false,
-  ElectionInstance:null,
+  initContractLoading:true,
+    ElectionInstance:null,
   contractOwnerAddress:null,
   candidates:[],
   candidateLoading:false,
@@ -30,7 +31,7 @@ const initialState={
      loading :false,
      addCandidateSuccess:false,
      deleteCandidateSuccess:false,
-     electionphaseloading:false,
+     electionphaseloading:true,
      electionphase:null,
   }
     
@@ -50,12 +51,18 @@ export const  web3Reducer=(state=initialState,action)=>{
              ...state,
              web3:action.payload,
              web3Loading:false
-          }
+          } 
+          case INIT_ELECTION_CONTRACT_LOADING:
+            return{
+              ...state,
+              initContractLoading:true
+            }
         
           case INIT_ELECTION_CONTRACT:
             return{
               ...state,
-              ElectionInstance:action.payload
+              ElectionInstance:action.payload,
+              initContractLoading:false
             }
           case SET_ACCOUNT :
             return {

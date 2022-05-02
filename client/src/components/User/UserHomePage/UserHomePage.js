@@ -4,7 +4,7 @@ import React, { useState,useEffect } from 'react';
 import CandidateList from "../CandidateList/CandidateList"
 import Results from "../UserHomePage/Results/Result"
 import Navbar from  "./Navbar"
-import {initWeb3,VoteCandidate} from "../../../redux/ActionCreaters/Web3Actions"
+import {initWeb3,VoteCandidate,getElectionPhase} from "../../../redux/ActionCreaters/Web3Actions"
 
 import { connect } from 'react-redux';
 import "./UserHomePage.css"
@@ -19,19 +19,22 @@ const UserHomePage = (props) => {
         } =web3Data
       console.log(web3Data);
     
-    useEffect(()=>{      
+    useEffect(() => {
+      async function fetchMyAPI() {   
+        console.log("fetch");   
+        await props.initWeb3(); 
+      }
+  
       
       console.log(props.user);     
-       if(props.user  && props.user.isAdmin){
-         props.history.push("/admin/home")
-       }  else{
-         console.log("intiWeb");
-        props.initWeb3(); 
+      if(props.user  && props.user.isAdmin){
+        props.history.push("/admin/home")
+      }  else{
+        fetchMyAPI()  
+      
        
-        
-       }
-         
-         
+       
+      }       
     },[])
 
       const vote=(id)=>{
@@ -58,12 +61,12 @@ const UserHomePage = (props) => {
     
     { props.web3Reducer.adminData.electionphaseloading && <p>Loading</p> }
 
-    {!props.web3Reducer.adminData.electionphaseloading && !props.web3Reducer.adminData.electionphase && <p>Election Ended </p>}
-    {!props.user.loading && props.user.userProfile.isVoted &&  <div> Your Vote has been casted </div> }
+    {!props.web3Reducer.initContractLoading && !props.web3Reducer.web3Loading && !props.web3Reducer.adminData.electionphaseloading && !props.web3Reducer.adminData.electionphase && <p>Election Ended </p>}
+    { !props.web3Reducer.initContractLoading && !props.user.loading && props.user.userProfile.isVoted &&  <div> Your Vote has been casted </div> }
    
    
      {
-        activeIndex ==0 ? !props.user.loading && !props.web3Reducer.adminData.electionphaseloading && props.web3Reducer.adminData.electionphase && !props.user.userProfile.isVoted  && !props.web3Reducer.candidateLoading  && <CandidateList candidatedList={candidates} vote={vote} isVoted={props.user.userProfile.isVoted}>
+        activeIndex ==0 ? !props.user.loading && !props.web3Reducer.initContractLoading && !props.web3Reducer.adminData.electionphaseloading && props.web3Reducer.adminData.electionphase && !props.user.userProfile.isVoted  && !props.web3Reducer.candidateLoading  && <CandidateList candidatedList={candidates} vote={vote} isVoted={props.user.userProfile.isVoted}>
         </CandidateList> :
       <Results ElectionInstance={ElectionInstance} changeElectionPhase={props.changeElectionPhase} Web3Reducer={props.web3Reducer} getElectionPhase={props.getElectionPhase}></Results>    
           

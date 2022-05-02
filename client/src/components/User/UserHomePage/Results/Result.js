@@ -8,34 +8,7 @@ import List_candidates from './ListOfCandidates/List_candidates';
 
 const Result = (props) => {
 
-
-    useEffect(()=>{  
-        console.log(props.web3Reducer.candidates);
-            props.getElectionPhase()   
-
-
-           const result= props.web3Reducer.candidates.sort(function(a, b){
-              return b.voteCount - a.voteCount;
-              //return b.id - a.id;
-              
-          });
-          console.log(result)
-
-          
-          result.map((candidate)=>{
-              if(candidate.id !='0'){
-               console.log(" user - ");
-               console.log(candidate.id);
-               console.log(candidate.name);
-               console.log(candidate.party);
-               console.log(candidate.qualification);
-               console.log(candidate.voteCount);
-                 
-              }
-          })
-       
-
-     },[])
+    
   
   
   return (

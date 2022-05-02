@@ -1,8 +1,24 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
+import UserStat from '../../../../Admin/AdminHomePage/SidebarScreens/UserStatistics/UserStat';
 import "./List_candidates.css"
 
 function List_candidates(props) {
-    console.log(props.candidates);
+    const [ list,setlist]=useState([])
+
+    useEffect(()=>{  
+
+        console.log(props.candidates);
+
+           const result= props.candidates.sort(function(a, b){
+              return b.voteCount - a.voteCount;
+              
+          });
+          setlist(result)
+       
+
+     },[])
+
+   
     return (
 
         
@@ -19,7 +35,7 @@ function List_candidates(props) {
     <tbody>
 
 
-        {props.candidates&&props.candidates[0]&&props.candidates.map((candidate)=>{
+        {list&&list[0]&&list.map((candidate)=>{
            if(candidate.id !='0'){
           return(
            <tr>

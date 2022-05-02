@@ -5,7 +5,7 @@ import {
     ADD_CANDIDATES_REQUEST,ADD_CANDIDATES_SUCCESS,ADD_CANDIDATES_FAILURE,    
     STARTELECTION,
     STOPELECTION,
-    SET_ACCOUNT,INIT_ELECTION_CONTRACT,
+    SET_ACCOUNT,INIT_ELECTION_CONTRACT,INIT_ELECTION_CONTRACT_LOADING,
     ELECTION_PHASE_CHANGE_REQUEST,ELECTION_PHASE_CHANGE_SUCCESS,ELECTION_PHASE_CHANGE_FAILURE,
     DELETE_CANDIDATES_REQUEST,DELETE_CANDIDATES_FAILURE,DELETE_CANDIDATES_SUCCESS,
     GET_ELECTION_PHASE_REQUEST,GET_ELECTION_PHASE_SUCCESS,GET_ELECTION_PHASE_FAILURE
@@ -42,7 +42,8 @@ export const initWeb3=() => async (dispatch,getState) => {
       let accounts = await web3.eth.getAccounts();
      // setaccount(accounts[0]) 
      dispatch({ type: SET_ACCOUNT,payload:accounts[0]}); 
-     dispatch({ type: INIT_BLOCKCHAIN_SUCCESS,payload:web3});  
+     dispatch({ type: INIT_BLOCKCHAIN_SUCCESS,payload:web3}); 
+     
 
      dispatch(initContract())
   
@@ -52,6 +53,7 @@ export const initWeb3=() => async (dispatch,getState) => {
 
   
 export const initContract=() => async (dispatch,getState) => {
+  dispatch({ type: INIT_ELECTION_CONTRACT_LOADING, }); 
        
   const networkId = await getState().web3Reducer.web3.eth.net.getId();
  
@@ -60,11 +62,12 @@ export const initContract=() => async (dispatch,getState) => {
   if(deployedNetwork){
       const web3=getState().web3Reducer.web3;
      if(web3){
-      const ElectionInstance = new web3.eth.Contract( Election.abi, deployedNetwork.address );   
+      const ElectionInstance = new web3.eth.Contract( Election.abi, deployedNetwork.address ); 
      
 
       console.log(ElectionInstance);
       dispatch({ type: INIT_ELECTION_CONTRACT,payload:ElectionInstance }); 
+      await dispatch( getElectionPhase())
       
       dispatch(getCandidates())     
 

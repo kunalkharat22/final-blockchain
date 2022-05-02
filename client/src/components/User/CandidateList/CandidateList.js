@@ -18,7 +18,6 @@ const Vote=(id)=>{
          <th>Sr.</th>
          <th>Candidate Name</th>
          <th>Party</th>
-         <th>Age</th>
          <th>Qualification</th>
      </tr>
  </thead>
@@ -29,8 +28,7 @@ const Vote=(id)=>{
            <tr>
              <td>{candidate.id}</td>
               <td>{candidate.name}</td>
-              <td>{candidate.party}</td> 
-              <td>{candidate.age}</td>             
+              <td>{candidate.party}</td>        
               <td>{candidate.qualification}</td>  
               { !props.isVoted && <button onClick={()=>{Vote(candidate.id)}} className="delete-btn" >Vote</button>}
             </tr>
