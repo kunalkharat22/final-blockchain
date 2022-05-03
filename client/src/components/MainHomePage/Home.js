@@ -4,15 +4,14 @@ import {database} from '../../firebase';
 
 function Home (props) {
    
-   const SignInClicked=()=>{
+   const RegisterVoterClicked=()=>{
     console.log(props);
       props.history.push("/user/login")
-	  console.log("done");
 
     }
 
-    const RegisterClicked=()=>{
-       props.history.push("/user/register")
+    const RegisterAdminClicked=()=>{
+       props.history.push("/admin/login")
     }
 
 
@@ -27,7 +26,8 @@ function Home (props) {
 			<h3> Considering all the problems associated with the current election system of India such as vote tampering, standing in long lines to cast votes, booth capturing etc. 
 We are focused on eradicating such problems and bring about transparency, authentication in our voting procedure. 
         </h3>
-	<button class="signIn-btn btn-getStarted btn text-align-center btn-bg-green" onClick={()=>{RegisterClicked()}}>GET STARTED </button>   
+	<button class="signIn-btn btn-getStarted btn text-align-center btn-bg-green" onClick={()=>{RegisterVoterClicked()}}> Voter Login </button>   
+	<button class="signIn-btn btn-getStarted btn text-align-center btn-bg-green" onClick={()=>{RegisterAdminClicked()}}>Admin Login </button>   
 	
 	</div>
 

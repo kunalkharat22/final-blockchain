@@ -48,7 +48,7 @@ function App(props) {
        
        <UnProtectedRoute
         exact
-        path="/user/register"
+        path="/user/login"
         component={withRouter(UserRegister)}
         isAuthenticated={isAuthenticated}
         history={history}
