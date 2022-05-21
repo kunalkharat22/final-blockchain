@@ -94,17 +94,19 @@ var verify = new firebaseApp.auth.RecaptchaVerifier('recaptcha-container', {
         
 <div class="main">
   
-  <div class="comp2-left ">
+<div class="comp2-left ">
     <h1 class="text-align-left color-white logo"> E - VOTING PORTAL</h1>
-    <div class="d-flex">
-      
-    <h1 class="color-white text-align-center already-registered">Already   Registered ?</h1>
-        <h3 class="color-white text-align-center details ">Log in with your Aadhar to get started <br/>with your online e-voting process <br/>in just a few steps.
+    <div class="d-flex login-using-adhar">
+     
+    <h1 class="color-white text-align-center already-registered">Login using your Aadhar</h1>
+        <h3 class="color-white text-align-center details ">To get started enter your Aadhar number.<br/>Click on the icon on the right to recieve OTP<br/> on your registered phone number.
 </h3>
-    
-    <button class="signIn-btn btn text-align-center  btn-bg-transparent "  onClick={(e)=>{SignInClicked(e)}}>SIGN IN </button>
+   
+    {/* <button class="signIn-btn btn text-align-center  btn-bg-transparent "  onClick={(e)=>{SignInClicked(e)}}>SIGN IN </button> */}
+   
     </div>
   </div>
+
   
   
   <div class="comp2-right d-flex">
