@@ -25,7 +25,6 @@ function List_candidates(props) {
     <table class="styled-table">
     <thead>
         <tr className='table-head'>
-            <th>Sr.</th>
             <th>Candidate Name</th>
             <th>Party</th>
             <th>Qualification</th>
@@ -39,7 +38,6 @@ function List_candidates(props) {
            if(candidate.id !='0'){
           return(
            <tr>
-             <td>{candidate.id}</td>
               <td>{candidate.name}</td>
               <td>{candidate.party}</td> 
               <td>{candidate.qualification}</td>             

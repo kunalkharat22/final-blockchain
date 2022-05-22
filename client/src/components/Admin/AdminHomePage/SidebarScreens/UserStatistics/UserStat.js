@@ -24,7 +24,7 @@ function UserStat(props) {
             setVoteCount(parseInt(voteCount))
             console.log( voteCount);
         //total users from firebase
-        var dbRef = database.ref('usersDetails' );
+        var dbRef = database.ref('users' );
 
     var allUser=[]
       
@@ -41,7 +41,7 @@ function UserStat(props) {
    .reduce((sum, record) => sum + record.value)  */
         setTotalUsers(allUser.length)
         
-        console.log( voteCount ,allUser.length-voteCount);
+        console.log( ` no of people voted  - ${voteCount}   ||total no of people ${allUser.length}   ||   no of people not voted :- ${allUser.length-voteCount}`);
 
         setdisplayPie(true)       
 
@@ -59,7 +59,7 @@ function UserStat(props) {
         <div class="wrapper-charts">
                <h1 class="color-green  stat-title">Summary Votes </h1> 
 
-             { displayPie&&  <Donut   series={[voteCount,totalUsers-voteCount]}  labels={ ['Voted', 'Not Voted'] } colors={ ['	#3BD172', '#3A3FCF'] } ></Donut>
+             { displayPie&&  <Donut series={[voteCount,totalUsers-voteCount]}  labels={ ['Voted', 'Not Voted'] } colors={ ['	#3BD172', '#3A3FCF'] } ></Donut>
            }
            
             { /*  <h1 class="color-green  stat-title">Gender and Age </h1> 

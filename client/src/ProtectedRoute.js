@@ -26,7 +26,7 @@ const ProtectedRoute = ({
             state: { from: props.location }
           }:
           {
-            pathname: "/user/register",
+            pathname: "/user/login",
             state: { from: props.location }
           }
         

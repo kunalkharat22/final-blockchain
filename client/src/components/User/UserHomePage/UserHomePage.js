@@ -23,17 +23,14 @@ const UserHomePage = (props) => {
       async function fetchMyAPI() {   
         console.log("fetch");   
         await props.initWeb3(); 
-      }
-  
-      
+      } 
+            
       console.log(props.user);     
-      if(props.user  && props.user.isAdmin){
+      if(props.user  && props.user.isAdmin){        
+       // alert("admin logged in ")
         props.history.push("/admin/home")
       }  else{
-        fetchMyAPI()  
-      
-       
-       
+        fetchMyAPI()      
       }       
     },[])
 

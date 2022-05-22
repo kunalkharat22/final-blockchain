@@ -16,7 +16,7 @@ const Result = (props) => {
           
           { props.web3Reducer.adminData.electionphaseloading ? <p>Loading</p> : ( !props.web3Reducer.adminData.electionphaseloading  && props.web3Reducer.adminData.electionphase ?
             
-            <p>ON</p> :
+            <p>Elections are still going on</p> :
             
           ( !props.web3Reducer.adminData.electionphaseloading  && !props.web3Reducer.candidateLoading  && <List_candidates candidates={props.web3Reducer.candidates}> </List_candidates>)
           )}

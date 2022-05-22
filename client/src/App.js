@@ -43,7 +43,8 @@ function App(props) {
         <Router history={history}>
 
         <Switch>          
-        <Route exact path="/" component={withRouter(HomePage)} history={history}></Route>          
+      
+        <ProtectedRoute exact path="/" component={withRouter(HomePage)} history={history}></ProtectedRoute>          
               
        
        <UnProtectedRoute
