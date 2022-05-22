@@ -9,11 +9,7 @@ import {auth,firebaseApp,database } from "../../../../../firebase";
 function UserStat(props) {
     const [voteCount,setVoteCount]=useState(0);
     const [totalUsers,setTotalUsers]=useState(0);
-    const [displayPie,setdisplayPie]=useState(false);
-
-
-
-   
+    const [displayPie,setdisplayPie]=useState(false);   
 
     useEffect(()=>{
 
@@ -59,7 +55,7 @@ function UserStat(props) {
         <div class="wrapper-charts">
                <h1 class="color-green  stat-title">Summary Votes </h1> 
 
-             { displayPie&&  <Donut series={[voteCount,totalUsers-voteCount]}  labels={ ['Voted', 'Not Voted'] } colors={ ['	#3BD172', '#3A3FCF'] } ></Donut>
+             { displayPie&&  <Donut series={[voteCount,totalUsers-voteCount]}  labels={ ['Voted', 'Not Voted'] } colors={ ['#3BD172', '#3A3FCF'] } ></Donut>
            }
            
             { /*  <h1 class="color-green  stat-title">Gender and Age </h1> 
